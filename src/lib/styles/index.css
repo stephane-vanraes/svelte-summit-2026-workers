@@ -1,0 +1,217 @@
+:root {
+	--surface: #faf6f0;
+	--text: #333333;
+	--accent1: #d8465e;
+	--accent2: #3a4e8c;
+	--accent3: #29c275;
+}
+
+@font-face {
+	font-display: swap;
+	font-family: 'Fraunces';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/Fraunces.ttf') format('truetype');
+}
+
+@font-face {
+	font-display: swap;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 100 900;
+	src: url('/fonts/Inter.ttf') format('truetype');
+}
+
+::view-transition-group(root) {
+	animation: none;
+}
+
+::view-transition-group(*) {
+	animation-duration: 250ms;
+	z-index: 1000;
+}
+
+@media (prefers-reduced-motion) {
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
+}
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+	color: inherit;
+	font: inherit;
+	line-height: inherit;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+
+*:is(:active, :focus, :hover) {
+	outline: none;
+}
+
+html {
+	font-size: 2.5rem;
+}
+
+body {
+	background: var(--surface);
+	background-attachment: fixed;
+	color: var(--text);
+	display: flex;
+	flex-direction: column;
+	font-family: 'Inter', sans-serif;
+	min-height: 100dvh;
+	overflow: hidden auto;
+	padding: 1rem;
+
+	main {
+		align-content: start;
+		display: grid;
+		flex: 1;
+		gap: 1rem;
+	}
+}
+
+img {
+	display: flex;
+	max-inline-size: 100%;
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Fraunces', sans-serif;
+}
+
+h1 {
+	font-size: 3rem;
+	grid-column: 1 / -1;
+	justify-self: start;
+}
+
+h2 {
+	font-size: 1.5rem;
+}
+
+ul {
+	display: grid;
+	gap: 0.5rem;
+	list-style-type: none;
+}
+
+.red {
+	text-underline-offset: 0.125lh;
+	text-decoration-skip-ink: all;
+	color: var(--accent1);
+}
+
+.blue {
+	text-underline-offset: 0.125lh;
+	text-decoration-skip-ink: all;
+	color: var(--accent2);
+}
+
+.green {
+	text-underline-offset: 0.125lh;
+	text-decoration-skip-ink: all;
+	color: var(--accent3);
+}
+
+.bold {
+	font-weight: 600;
+}
+
+.under {
+	text-decoration: underline 2px currentColor;
+}
+
+.code-header {
+	color: var(--accent1);
+	font-weight: 600;
+	margin-block-end: 1lh;
+	text-decoration: underline;
+}
+
+code {
+	background-color: white;
+	border-radius: 0.5rem;
+	display: block;
+	font-family: monospace;
+	font-size: 1rem;
+	inline-size: max-content;
+	line-height: 0.75;
+	padding: 1rem 4rem 1rem 1rem;
+
+	.comment {
+		opacity: 0.75;
+	}
+}
+
+label {
+	display: grid;
+	gap: 0.5rem;
+
+	> span {
+		font-weight: 600;
+	}
+}
+
+input[type='text'],
+input[type='number'],
+textarea {
+	border-radius: 0.5rem;
+	border: 4px solid var(--accent1);
+	inline-size: 100%;
+	padding: 0.5rem;
+
+	&:is(:active, :focus, :hover) {
+		border-color: var(--accent2);
+	}
+}
+
+input[type='number'] {
+	font-size: 2rem;
+	inline-size: 4ch;
+	text-align: end;
+}
+
+@property --bg-percentage {
+	syntax: '<percentage>';
+	inherits: false;
+	initial-value: 0%;
+}
+
+button {
+	--bg-percentage: 0%;
+	align-items: center;
+	background-image: radial-gradient(
+		circle at 0% 0%,
+		var(--accent2) calc(var(--bg-percentage) - 50%),
+		var(--accent1) var(--bg-percentage)
+	);
+	border: 0;
+	border-radius: 0.5rem;
+	color: white;
+	display: flex;
+	gap: 1ch;
+	inline-size: 100%;
+	justify-content: space-between;
+	letter-spacing: 4px;
+	padding: 1rem;
+	transition: --bg-percentage 300ms linear;
+
+	&:is(:active, :focus, :hover):not(:disabled) {
+		--bg-percentage: 150%;
+	}
+
+	&:disabled {
+		background-color: grey;
+		background-image: none;
+	}
+}
